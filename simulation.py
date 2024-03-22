@@ -2,7 +2,7 @@
 
 import curses
 
-from specs.ship import Battleship, Cruiser, Destroyer, Fighter
+from specs.ship import Battleship, Cruiser, Destroyer, Frigate
 
 class Simulation:
   def __init__(self, leftFleet, rightFleet, interfaceLeft, interfaceRight, gui):
@@ -20,8 +20,6 @@ class Simulation:
 
     else:
       # Combat without gui
-      print("My Fleet:")
-      self.leftFleet.list_ships()
       print(f"Starting Battle: {leftFleet.name} VS {rightFleet.name}")
 
       # Combat continues for as long as both players have ships and we have not passed round 1000
@@ -43,8 +41,8 @@ class Simulation:
     self.target_right_ships(self.leftFleet, self.rightFleet)
     self.target_left_ships(self.rightFleet, self.leftFleet)
 
-    # Fighters shoot first, then Destroyers, then Cruisers, finally Battleships
-    self.fire_weapons(Fighter)
+    # Frigates shoot first, then Destroyers, then Cruisers, finally Battleships
+    self.fire_weapons(Frigate)
     self.fire_weapons(Destroyer)
     self.fire_weapons(Cruiser)
     self.fire_weapons(Battleship)
@@ -212,7 +210,7 @@ class Simulation:
         win.addstr(row + D % 16, 20 - D // 16 * 2, "◗", self.get_color(ship))
         D += 1
 
-      if (isinstance(ship, Fighter)):
+      if (isinstance(ship, Frigate)):
         win.addstr(row + F % 16, 35 - F // 16 * 2, "●", self.get_color(ship))
         F += 1
 
@@ -231,7 +229,7 @@ class Simulation:
         win.addstr(row + D % 16, 60 + D // 16 * 2, "◖", self.get_color(ship))
         D += 1
 
-      if (isinstance(ship, Fighter)):
+      if (isinstance(ship, Frigate)):
         win.addstr(row + F % 16, 45 + F // 16 * 2, "●", self.get_color(ship))
         F += 1
 
@@ -258,7 +256,7 @@ class Simulation:
     b1 = rStats["cost"]
     b2 = rStats["total_cost"]
     b = f"{b1}/{b2}"
-    c = "Command Points"
+    c = "Cost"
     text =  f"{a:<30}{c:^16}{b:>30}"
     win.addstr(26, 2, f"{text}")
 
@@ -314,16 +312,20 @@ class Simulation:
     # default, undamaged
     color = 5
 
-    if ship.shields < ship.max_shields:
-      color = 4
+    try: # to prevent errors when running with not yet implemented attributes
+      if ship.shields < ship.max_shields:
+        color = 4
 
-    if ship.armor < ship.max_armor:
-      color = 3
+      if ship.armor < ship.max_armor:
+        color = 3
 
-    if ship.hull < ship.max_hull:
-      color = 2
+      if ship.hull < ship.max_hull:
+        color = 2
 
-    if ship.hull == 0:
-      color = 1
+      if ship.hull == 0:
+        color = 1
+
+    except:
+      color = 5
 
     return curses.color_pair(color)

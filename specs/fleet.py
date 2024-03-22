@@ -1,29 +1,32 @@
-from specs.ship import Fighter, Destroyer, Cruiser, Battleship
 import random
+from specs.ship import Frigate, Destroyer, Cruiser, Battleship
+
+class InvalidFleetError(Exception):
+  """
+  Raise this if the fleet file can not be read or is invalid.
+  YOU CAN BUT DON'T NEED TO MODIFY THIS CLASS.
+  """
+  pass
+
+class InvalidShipError(Exception):
+  """
+  Raise this if the ship module layout is incorrect.
+  YOU CAN BUT DON'T NEED TO MODIFY THIS CLASS.
+  """
+  pass
 
 class Fleet:
   def __init__(self, userid = None):
     '''
     Creates a Fleet by reading in a matching text file in the fleets / folder
-    DO NOT CHANGE THIS FUNCTION.
+    DO NOT CHANGE THIS METHOD.
     '''
     if userid:
       self.name = userid
-      self.ships = []
-      self.read_fleet_file()
+      self.ships = read_fleet_file(userid)
     else:
       self.name = "random"
       self.ships = create_random_ships()
-
-  def read_fleet_file(self, target_cost=100):
-    '''
-    This function attempts to load a fleet file and ensures a fleet file is valid.
-    '''
-    # TODO Phase 1
-    for i in range(100):
-      f = Fighter("R")
-      self.ships.append(f)
-
 
   def get_weapons(self, ship_type):
     '''
@@ -34,7 +37,7 @@ class Fleet:
 
   def __str__(self):
     """
-    Returns a string with the summary of a fleet.
+    Returns a string with the summary of the fleet.
     """
     # TODO Phase 2
     return "F | TODO..."
@@ -81,6 +84,21 @@ class Fleet:
         # if one ship fails, all will fail so simply return here (performance)
         return
 
+def read_fleet_file(fleet_name, target_cost=100):
+  '''
+  This function attempts to
+  1. load a fleet file
+  2. Check if it is fully valid (otherwise raise exceptions)
+  3. Create the specified ships and returns them via a list
+  '''
+  # TODO Phase 1
+  ships = []
+
+  for i in range(target_cost):
+    ships.append(Frigate("R"))
+
+  return ships
+
 def create_random_ships(target_cost = 100):
   """
   This function will return a list of randomly generated ships.
@@ -118,7 +136,7 @@ def create_random_ships(target_cost = 100):
 
     elif type == 'F':
       cost += 1
-      ships.append(Fighter(random_weapons(1)))
+      ships.append(Frigate(random_weapons(1)))
 
   return ships
 

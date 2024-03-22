@@ -8,7 +8,7 @@ from os import path
 from sys import argv
 import importlib.util
 
-from specs.fleet import Fleet, create_random_fleet
+from specs.fleet import Fleet
 from simulation import Simulation
 
 def show_usage() -> None:
@@ -94,6 +94,7 @@ def main() -> None:
         spec.loader.exec_module(module)
         interface_left = getattr(module, 'set_targets')
     except:
+        print(f"Could not load set_targets for {left_fleet}. Defaulting to random.")
         from interface.random import set_targets as interface_left
 
     try:
@@ -103,17 +104,20 @@ def main() -> None:
         spec.loader.exec_module(module)
         interface_right = getattr(module, 'set_targets')
     except:
+        print(f"Could not load set_targets for {right_fleet}. Defaulting to random.")
         from interface.random import set_targets as interface_right
 
     # load fleets
     if path.exists(f"fleets/{left_fleet}.txt"):
         left_fleet = Fleet(left_fleet)
     else:
+        print(f"Could not find fleet {left_fleet}. Defaulting to random.")
         left_fleet = Fleet(None)
 
     if path.exists(f"fleets/{right_fleet}.txt"):
         right_fleet = Fleet(right_fleet)
     else:
+        print(f"Could not find fleet {right_fleet}. Defaulting to random.")
         right_fleet = Fleet(None)
 
     # Run Simulation

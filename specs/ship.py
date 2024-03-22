@@ -1,4 +1,4 @@
-from weapon import Railgun, Laser, Torpedo
+from .weapon import Railgun, Laser, Torpedo
 
 class Ship:
   def __init__(self, todo_change_these_to_parameters):
@@ -9,7 +9,7 @@ class Ship:
     # TODO Phase 2
     pass
 
-class Fighter(Ship):
+class Frigate(Ship):
   def __init__(self, modules):
     # TODO Phase 1
     pass

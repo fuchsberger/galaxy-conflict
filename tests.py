@@ -1,5 +1,5 @@
-from specs.weapons import Railgun, Laser, Torpedo
-from specs.ships import Battleship, Fighter
+from specs.weapon import Railgun, Laser, Torpedo
+from specs.ship import Battleship, Frigate
 
 def test_ships():
   '''
@@ -69,7 +69,7 @@ def test_ships():
   assert l == 1 and r == 2 and t == 1, \
     "BS has the incorrect number of weapons."
 
-  ship = Fighter("R")
+  ship = Frigate("R")
 
   assert ship.max_hull == 100, \
     f"F Health should be 100, is: {ship.max_hull}"

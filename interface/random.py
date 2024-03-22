@@ -3,8 +3,8 @@ import random
 
 def set_targets(myFleet, enemyFleet):
   '''
-  This should ensure that each weapon of the attacker's ships
-  points towards a valid target (ship) of the defender.
+  Targeting Stragey that simply select a random target that has not been destroyed yet. Very poor combat capabilities!
+
   DO NOT CHANGE THIS FUNCTION.
   '''
 
