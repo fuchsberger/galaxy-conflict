@@ -4,14 +4,14 @@ import random
 class Fleet:
   def __init__(self, userid):
     '''
-    Creates a Fleet by reading in a matching text file in the fleets/ folder
+    Creates a Fleet by reading in a matching text file in the fleets / folder
     DO NOT CHANGE THIS FUNCTION.
     '''
     self.name = userid
     self.ships = []
     self.read_fleet_file()
 
-  def read_fleet_file(self):
+  def read_fleet_file(self, target_cost=100):
     '''
     This function attempts to load a fleet file and ensures a fleet file is valid.
     '''
@@ -58,48 +58,47 @@ class Fleet:
 
   def list_ships(self):
     # DO NOT CHANGE THIS METHOD
-    print("T |  H   |  A   |  S   |  PD  |  E   | DPS |")
-    print("==|======|======|======|======|======|=====|")
+    print("T |  Hull  | Armor | Shield |  PD  |  E  | DPR |")
+    print("==|========|=======|========|======|=====|=====|")
     for ship in self.ships:
       print(ship)
 
-def create_random_fleet():
+def create_random_fleet(target_cost = 100):
   """
   This function will update `random.txt` with a new, randomly composed fleet.
-  DO NOT CHANGE THIS FUNCTION
+  DO NOT CHANGE THIS FUNCTION.
   """
-  file = open("fleets/random.txt", "w")
   s = ""
+  cost = 0
 
-  cp = 0
-  while(cp != 100):
+  while(cost != target_cost):
     # create random ship type
     type = random.choice("FFFFDDDCCB")
 
     # if ship type would exceed command points try again,
     # otherwise increase command points and fill ship with modules
-    if type == 'B' and cp + 8 > 100:
+    if type == 'B' and cost + 8 > 100:
       continue
     elif type == 'B':
-      cp += 8
+      cost += 8
       s += "B " + random_weapon_modules(4) + random_defense_modules(3) + "\n"
-    elif type == 'C' and cp + 4 > 100:
+    elif type == 'C' and cost + 4 > 100:
       continue
     elif type == 'C':
-      cp += 4
+      cost += 4
       s += "C " + random_weapon_modules(3) + random_defense_modules(2) + "\n"
-    elif type == 'D' and cp + 2 > 100:
+    elif type == 'D' and cost + 2 > 100:
       continue
     elif type == 'D':
-      cp += 2
+      cost += 2
       s += "D " + random_weapon_modules(2) + random_defense_modules(1) + "\n"
     elif type == 'F':
-      cp += 1
+      cost += 1
       s += "F " + random_weapon_modules(1) + "\n"
 
+  file = open("fleets/random.txt", "w")
   file.write(s)
   file.close()
-
 
 def random_weapon_modules(count):
   # DO NOT CHANGE THIS FUNCTION

@@ -1,0 +1,18 @@
+# A fleet of all-purpose battleships (a.k. Swiss Army Knife)
+
+SEATLLR
+SEATLLR
+SEATLLR
+SEATLLR
+
+SEATLRR
+SEATLRR
+SEATLRR
+SEATLRR
+
+SEATTLR
+SEATTLR
+SEATTLR
+SEATTLR
+
+C SSTLR

@@ -1,3 +1,5 @@
+# A randomly produced fleet of ships with different configurations
+
 C LRRAA
 F R
 F T

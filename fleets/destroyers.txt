@@ -1,0 +1,56 @@
+# A Fleet of laser/railgun Destroyers
+
+D LR E
+D LR E
+D LR E
+D LR E
+D LR E
+D LR E
+D LR E
+D LR E
+D LR E
+D LR E
+
+D LR S
+D LR S
+D LR S
+D LR S
+D LR S
+D LR S
+D LR S
+D LR S
+D LR S
+D LR S
+
+D LR A
+D LR A
+D LR A
+D LR A
+D LR A
+D LR A
+D LR A
+D LR A
+D LR A
+D LR A
+
+D LR S
+D LR S
+D LR S
+D LR S
+D LR S
+D LR S
+D LR S
+D LR S
+D LR S
+D LR S
+
+D LR A
+D LR A
+D LR A
+D LR A
+D LR A
+D LR A
+D LR A
+D LR A
+D LR A
+D LR A
