@@ -20,5 +20,5 @@ def set_targets(myFleet, enemyFleet):
       if len(valid_ships) > 0:
         weapon.target = random.choice(valid_ships)
       else:
-        # to prevent weapons shoot on anihalated fleets
+        # to prevent weapons shooting on anihalated fleets
         weapon.target = None
