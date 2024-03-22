@@ -2,19 +2,16 @@
 
 import curses
 
-from specs.ships import Battleship, Cruiser, Destroyer, Fighter
-
-# Prepare Target Computer (Phase 2)
-# TODO change user ID and rename file below:
-from interface.student import set_targets as target_right_ships
-from interface.random import set_targets as target_left_ships
+from specs.ship import Battleship, Cruiser, Destroyer, Fighter
 
 class Simulation:
-  def __init__(self, leftFleet, rightFleet, gui):
+  def __init__(self, leftFleet, rightFleet, interfaceLeft, interfaceRight, gui):
     self.finished = False
     self.round = 0
     self.leftFleet = leftFleet
     self.rightFleet = rightFleet
+    self.target_right_ships = interfaceLeft
+    self.target_left_ships = interfaceRight
 
     if(gui):
       self.speed = 0
@@ -43,14 +40,18 @@ class Simulation:
     DO NOT CHANGE THIS FUNCTION.
     '''
     # Aquire Targets
-    target_right_ships(self.leftFleet, self.rightFleet)
-    target_left_ships(self.rightFleet, self.leftFleet)
+    self.target_right_ships(self.leftFleet, self.rightFleet)
+    self.target_left_ships(self.rightFleet, self.leftFleet)
 
     # Fighters shoot first, then Destroyers, then Cruisers, finally Battleships
     self.fire_weapons(Fighter)
     self.fire_weapons(Destroyer)
     self.fire_weapons(Cruiser)
     self.fire_weapons(Battleship)
+
+    # regenerate shields
+    self.leftFleet.regenerate_shields()
+    self.rightFleet.regenerate_shields()
 
   def fire_weapons(self, priority):
     """

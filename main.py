@@ -6,6 +6,8 @@
 
 from os import path
 from sys import argv
+import importlib.util
+
 from specs.fleet import Fleet, create_random_fleet
 from simulation import Simulation
 
@@ -84,19 +86,38 @@ def main() -> None:
             show_usage()
             exit(-3)
 
+    # Try importing the provided target system, otherwise load random.
+    try:
+        file_path = f'path/to/{left_fleet}.py'
+        spec = importlib.util.spec_from_file_location(left_fleet, file_path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        interface_left = getattr(module, 'set_targets')
+    except:
+        from interface.random import set_targets as interface_left
+
+    try:
+        file_path = f'path/to/{right_fleet}.py'
+        spec = importlib.util.spec_from_file_location(right_fleet, file_path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        interface_right = getattr(module, 'set_targets')
+    except:
+        from interface.random import set_targets as interface_right
+
     # load fleets
     if path.exists(f"fleets/{left_fleet}.txt"):
         left_fleet = Fleet(left_fleet)
     else:
-        left_fleet = create_random_fleet()
+        left_fleet = Fleet(None)
 
     if path.exists(f"fleets/{right_fleet}.txt"):
         right_fleet = Fleet(right_fleet)
     else:
-        right_fleet = create_random_fleet()
+        right_fleet = Fleet(None)
 
     # Run Simulation
-    Simulation(left_fleet, right_fleet, gui)
+    Simulation(left_fleet, right_fleet, interface_left, interface_right, gui)
 
 # avoid running main() in case main.py is imported.
 if __name__ == "__main__":

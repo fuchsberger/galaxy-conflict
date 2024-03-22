@@ -6,7 +6,7 @@ class Ship:
     pass
 
   def __str__(self):
-    # TODO Phase 1
+    # TODO Phase 2
     pass
 
 class Fighter(Ship):

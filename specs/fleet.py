@@ -1,15 +1,19 @@
-from specs.ships import Fighter #, Destroyer, Cruiser, Battleship
+from specs.ship import Fighter, Destroyer, Cruiser, Battleship
 import random
 
 class Fleet:
-  def __init__(self, userid):
+  def __init__(self, userid = None):
     '''
     Creates a Fleet by reading in a matching text file in the fleets / folder
     DO NOT CHANGE THIS FUNCTION.
     '''
-    self.name = userid
-    self.ships = []
-    self.read_fleet_file()
+    if userid:
+      self.name = userid
+      self.ships = []
+      self.read_fleet_file()
+    else:
+      self.name = "random"
+      self.ships = create_random_ships()
 
   def read_fleet_file(self, target_cost=100):
     '''
@@ -63,51 +67,69 @@ class Fleet:
     for ship in self.ships:
       print(ship)
 
-def create_random_fleet(target_cost = 100):
+  def regenerate_shields(self):
+    """
+    When called (at the end of a combat round) will regenerate shields.
+    DO NOT MODIFY THIS METHOD.
+    """
+    for ship in self.ships:
+      # try, because this won't work until you have implemented the classes.
+      try:
+        if ship.hull > 0 and ship.shields > 0 and ship.shields < ship.max_shields:
+          ship.shields = min(ship.max_shields, ship.shields + ship.shield_regen)
+      except:
+        # if one ship fails, all will fail so simply return here (performance)
+        return
+
+def create_random_ships(target_cost = 100):
   """
-  This function will update `random.txt` with a new, randomly composed fleet.
+  This function will return a list of randomly generated ships.
   DO NOT CHANGE THIS FUNCTION.
   """
-  s = ""
   cost = 0
+  ships = []
 
   while(cost != target_cost):
-    # create random ship type
+    # choose a random ship type
     type = random.choice("FFFFDDDCCB")
 
     # if ship type would exceed command points try again,
-    # otherwise increase command points and fill ship with modules
-    if type == 'B' and cost + 8 > 100:
+    # otherwise increase command points add new ship to list.
+    if type == 'B' and cost + 8 > target_cost:
       continue
+
     elif type == 'B':
       cost += 8
-      s += "B " + random_weapon_modules(4) + random_defense_modules(3) + "\n"
-    elif type == 'C' and cost + 4 > 100:
+      ships.append(Battleship(random_weapons(4) + random_defenses(3)))
+
+    elif type == 'C' and cost + 4 > target_cost:
       continue
+
     elif type == 'C':
       cost += 4
-      s += "C " + random_weapon_modules(3) + random_defense_modules(2) + "\n"
-    elif type == 'D' and cost + 2 > 100:
+      ships.append(Cruiser(random_weapons(3) + random_defenses(2)))
+
+    elif type == 'D' and cost + 2 > target_cost:
       continue
+
     elif type == 'D':
       cost += 2
-      s += "D " + random_weapon_modules(2) + random_defense_modules(1) + "\n"
+      ships.append(Destroyer(random_weapons(2) + random_defenses(1)))
+
     elif type == 'F':
       cost += 1
-      s += "F " + random_weapon_modules(1) + "\n"
+      ships.append(Fighter(random_weapons(1)))
 
-  file = open("fleets/random.txt", "w")
-  file.write(s)
-  file.close()
+  return ships
 
-def random_weapon_modules(count):
+def random_weapons(count):
   # DO NOT CHANGE THIS FUNCTION
   s = ""
   while len(s) < count:
     s += random.choice("RLT")
   return s
 
-def random_defense_modules(count):
+def random_defenses(count):
   # DO NOT CHANGE THIS FUNCTION
   s = ""
   while len(s) < count:
