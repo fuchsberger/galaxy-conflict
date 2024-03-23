@@ -1,12 +1,12 @@
 """
 This File contains some of the actual tests we used in Gradescope.
-It gives clues on how we tested your files. You should be able to run this file.
+It gives clues on how we tested your files. You can run this file locally.
 """
 
 import unittest
 from specs.ship import Frigate
 
-class TestDir(unittest.TestCase):
+class TestGalaxyConflict(unittest.TestCase):
     # Phase 1.1 - Testing Ships and Defense Modules (Test 1.1.1)
     def test_ship_frigate(self):
         """
