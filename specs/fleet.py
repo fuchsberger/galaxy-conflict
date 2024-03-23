@@ -1,5 +1,5 @@
 import random
-from specs.ship import Frigate, Destroyer, Cruiser, Battleship
+from .ship import Frigate, Destroyer, Cruiser, Battleship
 
 class InvalidFleetError(Exception):
   """
