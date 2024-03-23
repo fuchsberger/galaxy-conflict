@@ -1,6 +1,8 @@
 """
 This File contains some of the actual tests we used in Gradescope.
 It gives clues on how we tested your files. You can run this file locally.
+
+YOU ARE ENCOURAGED TO ADD MORE TESTS HERE.
 """
 
 import unittest
