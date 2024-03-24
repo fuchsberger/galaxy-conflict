@@ -6,7 +6,10 @@ class Weapon:
     Base constructor for weapons
     '''
     # TODO Phase 1
-    pass
+
+    # do not remove the following line, it is needed for phase 2
+    # and will contain the current ship this weapon is firing upon:
+    self.target = None
 
   def fire(self, combat_round):
     '''
