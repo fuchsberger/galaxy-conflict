@@ -88,7 +88,7 @@ def main() -> None:
 
     # Try importing the provided target system, otherwise load random.
     try:
-        file_path = f'path/to/{left_fleet}.py'
+        file_path = f'interface/{left_fleet}.py'
         spec = importlib.util.spec_from_file_location(left_fleet, file_path)
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
@@ -98,7 +98,7 @@ def main() -> None:
         from interface.random import set_targets as interface_left
 
     try:
-        file_path = f'path/to/{right_fleet}.py'
+        file_path = f'interface/{right_fleet}.py'
         spec = importlib.util.spec_from_file_location(right_fleet, file_path)
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
