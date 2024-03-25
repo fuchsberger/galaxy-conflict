@@ -138,7 +138,7 @@ class Simulation:
     key = -1
 
     # create a box with a nice border
-    win = curses.newwin(32, 80)
+    win = curses.newwin(31, 80)
     win.border()
 
     # Header and non-updating stuff
@@ -277,13 +277,6 @@ class Simulation:
     c = "Hull"
     text =  f"{a:<30}{c:^16}{b:>30}"
     win.addstr(29, 2, f"{text}")
-
-    # Damage Taken
-    a = lStats["damage_taken"]
-    b = rStats["damage_taken"]
-    c = "Damage Taken"
-    text =  f"{a:<30}{c:^16}{b:>30}"
-    win.addstr(30, 2, f"{text}")
 
   def exit(self, gui=False):
     if(gui):
