@@ -7,6 +7,7 @@ YOU ARE ENCOURAGED TO ADD MORE TESTS HERE.
 
 import unittest
 from specs.ship import Frigate, Cruiser
+from specs.fleet import read_fleet_file
 
 class TestGalaxyConflict(unittest.TestCase):
     # Phase 1.1 - Testing Ships and Defense Modules (Test 1.1.1)
@@ -67,6 +68,18 @@ class TestGalaxyConflict(unittest.TestCase):
         self.assertEqual(t.accuracy, 1.0, "Cruiser torpedo accuracy should be 1.0")
 
         self.assertEqual(t.tracking, 1.0, "Cruiser torpedo tracking should be 1.0")
+
+    # Phase 1.3 - Testing read_fleet_file (Test 1.3.1)
+    def test_read_fleets(self):
+        """
+        Testing if all the known fleets read correctly.
+        """
+        print("If this test is failing check for failing tests below.")
+        print("Most likely it is failing because of a failing test below.")
+
+        for name in ["frigates", "destroyers", "cruisers", "battleships", "mixed"]:
+            # simply read in all fleet files to ensure there is no exception
+            read_fleet_file(name, 100)
 
 if __name__ == "__main__":
     unittest.main()
