@@ -63,13 +63,6 @@ class Fleet:
 
     return stats
 
-  def list_ships(self):
-    # DO NOT CHANGE THIS METHOD
-    print("T |  Hull  | Armor | Shield |  PD  |  E  | DPR |")
-    print("==|========|=======|========|======|=====|=====|")
-    for ship in self.ships:
-      print(ship)
-
   def regenerate_shields(self):
     """
     When called (at the end of a combat round) will regenerate shields.
